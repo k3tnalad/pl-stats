@@ -40,10 +40,24 @@
     }
   }
 
+  const nameShortener = (string) => {
+    if (string === 'Nottingham Forest') {
+      return 'Nottm Forest'
+    } else if (string === 'Manchester City') {
+      return 'Man City'
+    } else if (string === 'Manchester United') {
+      return 'Man United'
+    } else {
+      return string;
+    }
+  }
+
 
   let standings = JSON.parse(localStorage.getItem('teams')) || []; 
   let fixtures = JSON.parse(localStorage.getItem('fixtures')) || [];
   let stats = JSON.parse(localStorage.getItem('stats')) || [];
+
+  console.log(fixtures)
 
   async function getLeagueData() {
     if (standings.length > 1) {
@@ -97,14 +111,14 @@
     <div transition:fly="{{delay: 20, duration: 200}}" class="table">
       <div class="header">
         <span>Pos</span>
-        <span>Team</span>
+        <span class="team">Team</span>
         <span>+/-</span>
         <span>Pts</span>
       </div>
       {#each standings as team}
         <div class="position" dataset={team.rank}>
           <span>{team.rank}</span>
-          <span>{team.team.name}</span>
+          <span class="team">{nameShortener(team.team.name)}</span>
           <span>{team.all.goals.for}/{team.all.goals.against}</span>
           <span>{team.points}</span>
         </div>
@@ -115,12 +129,14 @@
     <div transition:fly="{{delay: 20, duration: 200}}" class="fixtures">
       {#each fixtures as fixture}
         <div class="line" id={fixture.fixture.id}>
-          <span class="homeTeam">{fixture.teams.home.name}</span>
+          <span class="homeTeam">
+            <img src="{fixture.teams.home.logo}" alt="teamLogo"> {nameShortener(fixture.teams.home.name)}</span>
           <section class="info">
             <!-- <span class="status">{fixture.fixture.status.short}</span> -->
             <span class="score">{fixture.goals.home} - {fixture.goals.away}</span>
           </section>
-          <span class="awayTeam">{fixture.teams.away.name}</span>
+          <span class="awayTeam">
+            <img src="{fixture.teams.away.logo}" alt="teamLogo"> {nameShortener(fixture.teams.away.name)}</span>
         </div>
         {/each}
     </div>
@@ -130,7 +146,7 @@
       <div class="statsHeader">
         <span>Player</span>
         <span>Goals</span>
-        <span>Of penalties</span>
+        <span>Pens</span>
       </div>
     {#each stats as player}
       <div class="player">
@@ -168,6 +184,7 @@
     align-items: center;
     gap: 2px;
   }
+
   div.position, div.header {
     width: 100%;
     color: #F2F4F3;
@@ -185,9 +202,11 @@
   div.statsHeader, div.player {
     background-color: #50151e;
     width: 100%;
-    height: 50px;
+    height: 35px;
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
+    padding-left: .5em;
+    place-items: center left;
   }
   div.player {
     background-color: #8B2635;
@@ -203,14 +222,29 @@
     background: #8B2635;
   }
 
-  span, section.info {
+  span.team {
+    place-items: left;
+  }
+
+  div.line > span {
     display: grid;
-    place-items: center;
+  }
+
+  div.line > span.homeTeam {
+    place-items: center left;
+    padding-left: .5em;
+  }
+
+  div.line > span.awayTeam {
+    place-items: center right;
+    padding-right: .5em;
   }
 
   section.info {
     background: #50151e;
     padding: 0 .6em;
+    display: grid;
+    place-items: center;
   }
 
   nav .wrapper a::after {
@@ -241,7 +275,7 @@ nav a {
   letter-spacing: 1px;
   font-weight: 100;
   text-shadow: 0 0 1px rgba(255,255,255,0.3);
-  font-size: 1.3em;
+  font-size: 1.1em;
 }
 
 nav a:hover,
