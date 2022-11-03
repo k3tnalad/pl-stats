@@ -1,6 +1,7 @@
 <script>
+    import { prevent_default } from 'svelte/internal';
   import { fade, fly } from 'svelte/transition';
-  import '/src/app.scss';
+  import '/src/app.css';
   const standingsEndpoint =  "https://api-football-v1.p.rapidapi.com/v3/standings?season=2022&league=39";
   const fixturesEndpoint = "https://api-football-v1.p.rapidapi.com/v3/fixtures?league=39&season=2022&last=10";
   const statisticsEndpoint = 'https://api-football-v1.p.rapidapi.com/v3/players/topscorers?league=39&season=2022';
@@ -12,6 +13,7 @@
     }
   };
 
+  const HEADER_TITLE = 'premier league lobby';
   let lastClicked = 'Table';
   let tableVisible = true;
   let fixturesVisible = false;
@@ -82,13 +84,13 @@
 
 <main>
   <header>
-    <h1>English Premier League</h1>
+    <h1>{HEADER_TITLE.toUpperCase()}</h1>
   </header>
   <nav>
     <div class="wrapper">
-      <button on:click={navHandler}>Fixtures</button>
-      <button on:click={navHandler}>Table</button>
-      <button on:click={navHandler}>Statistics</button>
+      <a href="/" on:click|preventDefault={navHandler}>Fixtures</a>
+      <a href="/" on:click|preventDefault={navHandler}>Table</a>
+      <a href="/" on:click|preventDefault={navHandler}>Statistics</a>
     </div>
   </nav>
   {#if tableVisible}  
@@ -149,11 +151,12 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
-    gap: 3rem;  
+    gap: 2rem;  
     padding-bottom: 3rem;
   }
   header {
-    padding: 2em 0;
+    padding: 2em 0 1em 0;
+    font-family: 'Crimson Text', serif;
   }
 
   div.table, div.fixtures, div.stats {
@@ -210,16 +213,49 @@
     padding: 0 .6em;
   }
 
-  button {
-    outline: none;
-    background-color: #8B2635;
-    color: #F2F4F3;
-    border: none;
-    padding: 1rem;
-    font-size: larger;
-    border-radius: 2px;
-    cursor: pointer;
-    box-shadow: 0px -2px 4px 2px rgba(0,0,0,0.6);
-  }
+  nav .wrapper a::after {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #8B2635;
+  content: '';
+  opacity: 0;
+  -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+  -moz-transition: opacity 0.3s, -moz-transform 0.3s;
+  transition: opacity 0.3s, transform 0.3s;
+  -webkit-transform: translateY(10px);
+  -moz-transform: translateY(10px);
+  transform: translateY(10px);
+}
+
+nav a {
+  position: relative;
+  display: inline-block;
+  margin: 15px 15px;
+  outline: none;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 100;
+  text-shadow: 0 0 1px rgba(255,255,255,0.3);
+  font-size: 1.3em;
+}
+
+nav a:hover,
+nav a:focus {
+  outline: none;
+}
+
+nav .wrapper a:hover::after,
+nav .wrapper a:focus::after {
+  opacity: 1;
+  -webkit-transform: translateY(0px);
+  -moz-transform: translateY(0px);
+  transform: translateY(0px);
+}
+
 </style>
 
