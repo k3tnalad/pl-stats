@@ -110,7 +110,7 @@
   {#if tableVisible}  
     <div transition:fly="{{delay: 20, duration: 200}}" class="table">
       <div class="header">
-        <span>Pos</span>
+        <span>#</span>
         <span class="team">Team</span>
         <span>+/-</span>
         <span>Pts</span>
@@ -118,7 +118,9 @@
       {#each standings as team}
         <div class="position" dataset={team.rank}>
           <span>{team.rank}</span>
-          <span class="team">{nameShortener(team.team.name)}</span>
+          <span class="team">
+            <img src={team.team.logo} alt="teamLogo">
+            <span>{nameShortener(team.team.name)}</span></span>
           <span>{team.all.goals.for}/{team.all.goals.against}</span>
           <span>{team.points}</span>
         </div>
@@ -130,13 +132,17 @@
       {#each fixtures as fixture}
         <div class="line" id={fixture.fixture.id}>
           <span class="homeTeam">
-            <img src="{fixture.teams.home.logo}" alt="teamLogo"> {nameShortener(fixture.teams.home.name)}</span>
+            <img src="{fixture.teams.home.logo}" alt="teamLogo">
+            <span>{nameShortener(fixture.teams.home.name)}</span>
+          </span>
           <section class="info">
             <!-- <span class="status">{fixture.fixture.status.short}</span> -->
             <span class="score">{fixture.goals.home} - {fixture.goals.away}</span>
           </section>
           <span class="awayTeam">
-            <img src="{fixture.teams.away.logo}" alt="teamLogo"> {nameShortener(fixture.teams.away.name)}</span>
+            <span>{nameShortener(fixture.teams.away.name)}</span>
+            <img src="{fixture.teams.away.logo}" alt="teamLogo">
+          </span>
         </div>
         {/each}
     </div>
@@ -145,14 +151,18 @@
     <div transition:fly="{{delay: 20, duration: 200}}" class="stats">
       <div class="statsHeader">
         <span>Player</span>
-        <span>Goals</span>
-        <span>Pens</span>
+        <div class="figures">
+          <span>Goals</span>
+          <span>Pens</span>
+        </div>
       </div>
     {#each stats as player}
       <div class="player">
         <span>{player.player}</span>
-        <span>{player.goals}</span>
-        <span>{player.pens}</span>
+        <div class="figures">
+          <span>{player.goals}</span>
+          <span>{player.pens}</span>
+        </div>
       </div>
     {/each}
     </div>
@@ -175,43 +185,81 @@
     font-family: 'Crimson Text', serif;
   }
 
+  /* general */
+
   div.table, div.fixtures, div.stats {
     width: 90%;
-    border: 1px #8B2635 solid;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    gap: 2px;
   }
+
+  /* standings/table */
 
   div.position, div.header {
     width: 100%;
     color: #F2F4F3;
     display: grid;
-    grid-template-columns: 10% auto 20% 10%;
+    grid-template-columns: 10% auto 15% 15%;
     background-color: #8B2635;
     gap: 1em;
     padding: 0 .5em; 
+    border-bottom: 2px solid black;
+
   }
 
-  div.header {
-    background-color: #50151e;
+  div.position:last-of-type {
+    border: none;
+    border-radius: 0px 0px 5px 5px;
   }
+
+  div.position > span:first-of-type,
+  div.header > span:first-of-type {
+    border-right: 2px solid black;
+    text-align: right;
+    padding-right: 5px;
+  } 
+
+  div.header {
+    border-radius: 5px 5px 0px 0px;
+    background-color: #50151e;
+    color: #494e4a;
+  }
+
+  /* stats */
 
   div.statsHeader, div.player {
     background-color: #50151e;
     width: 100%;
-    height: 35px;
+    height: 2em;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    padding-left: .5em;
+    grid-template-columns: 70% 30%;
     place-items: center left;
+    padding: 0 1em;
+    border-bottom: solid 2px black;
   }
+
+  div.statsHeader {
+    border-radius: 5px 5px 0 0;
+  }
+  div.player:last-of-type {
+    border: none;
+    border-radius: 0 0 5px 5px;
+  }
+
+  div.figures {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   div.player {
     background-color: #8B2635;
   }
 
+  /* fixtures */
 
   div.line {
     width: 100%;
@@ -220,24 +268,40 @@
     grid-template-columns: 1fr auto 1fr;
     font-size: 1em;
     background: #8B2635;
+    border-bottom: 1px solid black;
+  }
+
+  div.line:first-of-type {
+    border-radius: 5px 5px 0px 0px;
+  }
+
+  div.line:last-of-type {
+    border: none;
+    border-radius: 0px 0px 5px 5px;
   }
 
   span.team {
-    place-items: left;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 1em;
   }
 
   div.line > span {
-    display: grid;
+    display: flex;
+    align-items: center;
+    gap: 1em;
   }
 
   div.line > span.homeTeam {
-    place-items: center left;
-    padding-left: .5em;
+    justify-content: flex-start;
+    padding-left: .8em;
+
   }
 
   div.line > span.awayTeam {
-    place-items: center right;
-    padding-right: .5em;
+    justify-content: flex-end;
+    padding-right: .8em;
   }
 
   section.info {
