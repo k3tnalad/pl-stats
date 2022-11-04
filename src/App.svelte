@@ -135,10 +135,7 @@
             <img src="{fixture.teams.home.logo}" alt="teamLogo">
             <span>{nameShortener(fixture.teams.home.name)}</span>
           </span>
-          <section class="info">
-            <!-- <span class="status">{fixture.fixture.status.short}</span> -->
-            <span class="score">{fixture.goals.home} - {fixture.goals.away}</span>
-          </section>
+          <span class="score">{fixture.goals.home} - {fixture.goals.away}</span>
           <span class="awayTeam">
             <span>{nameShortener(fixture.teams.away.name)}</span>
             <img src="{fixture.teams.away.logo}" alt="teamLogo">
@@ -188,7 +185,7 @@
   /* general */
 
   div.table, div.fixtures, div.stats {
-    width: 90%;
+    width: 95%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -284,27 +281,28 @@
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 1em;
+    gap: .3em;
   }
 
   div.line > span {
     display: flex;
     align-items: center;
-    gap: 1em;
+    gap: .3em;
   }
 
   div.line > span.homeTeam {
     justify-content: flex-start;
-    padding-left: .8em;
+    padding-left: .3em;
 
   }
 
   div.line > span.awayTeam {
     justify-content: flex-end;
-    padding-right: .8em;
+    padding-right: .3em;
   }
 
-  section.info {
+  span.score {
+    width: 100%;
     background: #50151e;
     padding: 0 .6em;
     display: grid;
