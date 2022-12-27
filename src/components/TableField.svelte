@@ -46,19 +46,19 @@
 
 <div in:fly="{{duration: 200}}" out:fade="{{ duration: 100}}" class="table">
     <div class="header">
-      <span>#</span>
+      <span id="text-container" class="position-index"><p>#</p></span>
       <span class="team">Team</span>
-      <span>+/-</span>
-      <span>Pts</span>
+      <span id="text-container"><p>+/-</p></span>
+      <span id="text-container"><p>Pts</p></span>
     </div>
     {#each standings as team}
-      <div class="position" dataset={team.rank}>
-        <span>{team.rank}</span>
+      <div class="position">
+        <span id="text-container" class="positon-index"><p>{team.rank}</p></span>
         <span class="team">
           <img src={team.team.logo} alt="teamLogo">
           <span>{nameShortener(team.team.name)}</span></span>
-        <span>{team.all.goals.for}/{team.all.goals.against}</span>
-        <span>{team.points}</span>
+        <span id="text-container"><p>{team.all.goals.for}/{team.all.goals.against}</p></span>
+        <span id="text-container"><p>{team.points}</p></span>
       </div>
     {/each}
 </div>
@@ -70,6 +70,7 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
+      box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
    }
 
    @media screen and (min-width: 640px) {
@@ -80,12 +81,12 @@
 
   div.position, div.header {
     width: 100%;
-    color: #F2F4F3;
+    height: 2em;
+    color: #040F16;
     display: grid;
     grid-template-columns: 10% auto 15% 15%;
-    background-color: #8B2635;
-    gap: 1em;
-    padding: .5em .5em; 
+    background-color: #72727E;
+    gap: 1em; 
     border-bottom: 2px solid black;
 
   }
@@ -104,8 +105,8 @@
 
   div.header {
     border-radius: 5px 5px 0px 0px;
-    background-color: #50151e;
-    color: #494e4a;
+    background-color: #4E4E56;
+    color: #040F16;
   }
 
   span.team {
@@ -113,5 +114,9 @@
     justify-content: flex-start;
     align-items: center;
     gap: 0.4em;
+  }
+  span#text-container {
+    display: grid;
+    place-items: center;
   }
 </style>

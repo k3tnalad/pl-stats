@@ -63,6 +63,7 @@ div.stats {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
   }
   @media screen and (min-width: 640px) {
     div.stats {
@@ -70,8 +71,14 @@ div.stats {
     }
    }
 
+   div.statsHeader {
+     border-radius: 5px 5px 0 0;
+     background-color: #4E4E56;
+   }
+   div.player {
+    background-color: #72727E;
+   }
   div.statsHeader, div.player {
-    background-color: #50151e;
     width: 100%;
     height: 2em;
     display: grid;
@@ -81,9 +88,6 @@ div.stats {
     border-bottom: solid 2px black;
   }
 
-  div.statsHeader {
-    border-radius: 5px 5px 0 0;
-  }
   div.player:last-of-type {
     border: none;
     border-radius: 0 0 5px 5px;
@@ -94,10 +98,6 @@ div.stats {
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
-
-  div.player {
-    background-color: #8B2635;
   }
 </style>
 

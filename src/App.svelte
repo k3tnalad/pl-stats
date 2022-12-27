@@ -6,6 +6,7 @@
   import TableField from './components/TableField.svelte';
   import FixturesField from './components/FixturesField.svelte';
   import StatsField from './components/StatsField.svelte';
+  import Footer from './components/Footer.svelte';
 
   // NAVIGATION
   let lastClicked = 'Table';
@@ -39,26 +40,35 @@
 
 <main>
   <Header />
-  <nav>
-    <div class="wrapper">
-      <a href="/" on:click|preventDefault={navHandler}>Fixtures</a>
-      <a href="/" on:click|preventDefault={navHandler}>Table</a>
-      <a href="/" on:click|preventDefault={navHandler}>Statistics</a>
-    </div>
-  </nav>
-  {#if tableVisible}  
-    <TableField />
-  {/if}
-  {#if fixturesVisible}  
-    <FixturesField />
-  {/if}
-  {#if statsVisible}
-    <StatsField />
-  {/if}
+  <div class="data">
+    <nav>
+      <div class="wrapper">
+        <a href="/" on:click|preventDefault={navHandler}>Fixtures</a>
+        <a href="/" on:click|preventDefault={navHandler}>Table</a>
+        <a href="/" on:click|preventDefault={navHandler}>Statistics</a>
+      </div>
+    </nav>
+    {#if tableVisible}  
+      <TableField />
+    {/if}
+    {#if fixturesVisible}  
+      <FixturesField />
+    {/if}
+    {#if statsVisible}
+      <StatsField />
+    {/if}
+  </div>
+  <Footer />
 </main>
 
 <style>
   main {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: 1fr auto 1fr;
+  }
+  main div.data {
     width: 100%;
     height: 100%;
     display: flex;
@@ -91,7 +101,7 @@
     display: inline-block;
     margin: 15px 15px;
     outline: none;
-    color: #fff;
+    color: #040F16;
     text-decoration: none;
     text-transform: uppercase;
     letter-spacing: 1px;
