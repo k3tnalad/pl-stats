@@ -1,45 +1,44 @@
 <script>
-    import { fade, fly } from 'svelte/transition';
-    import '/src/app.css';
+import { fade, fly } from 'svelte/transition';
+import '/src/app.css';
 
-    const fixturesEndpoint = "https://api-football-v1.p.rapidapi.com/v3/fixtures?league=39&season=2022&last=10";
-    const options = {
-        method: 'GET',
-        headers: {
-        'X-RapidAPI-Key': '9b629c4000msh5f1e9f22f14de23p12cb4cjsn5860dd1d131a',
-        'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
-        }
-    };
-
-
-    let fixtures = JSON.parse(localStorage.getItem('fixtures')) || [];
-    const nameShortener = (string) => {
-        if (string === 'Nottingham Forest') {
-        return 'Nottm Forest'
-        } else if (string === 'Manchester City') {
-        return 'Man City'
-        } else if (string === 'Manchester United') {
-        return 'Man United'
-        } else {
-        return string;
-        }
+let LAST_GAME_WEEK = 14;
+const last10fixturesEndpoint = "https://api-football-v1.p.rapidapi.com/v3/fixtures?league=39&season=2022&last=10";
+const options = {
+    method: 'GET',
+    headers: {
+    'X-RapidAPI-Key': '9b629c4000msh5f1e9f22f14de23p12cb4cjsn5860dd1d131a',
+    'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com'
     }
+};
 
+let fixtures = JSON.parse(localStorage.getItem('fixtures')) || [];
+const nameShortener = (string) => {
+    if (string === 'Nottingham Forest') {
+    return 'Nottm Forest'
+    } else if (string === 'Manchester City') {
+    return 'Man City'
+    } else if (string === 'Manchester United') {
+    return 'Man United'
+    } else {
+    return string;
+    }
+}
 
-    async function getFixturesData() {
+async function getFixturesData() {
     if (fixtures.length > 1) {
-      return
+    return
     } else { 
-      const fixturesReq = await fetch(fixturesEndpoint, options)
-      if (fixturesReq.ok) {
+    const fixturesReq = await fetch(last10fixturesEndpoint, options)
+    if (fixturesReq.ok) {
         const fixturesData = await fixturesReq.json();
         fixtures = fixturesData.response;
         localStorage.setItem('fixtures', JSON.stringify(fixtures));
-      }
+    }
     }
 
     fixtures = JSON.parse(localStorage.getItem('fixtures'))
-  } 
+} 
 
   getFixturesData();
 </script>
@@ -50,11 +49,11 @@
     <div class="line" id={fixture.fixture.id}>
         <span class="homeTeam">
           <img src="{fixture.teams.home.logo}" alt="teamLogo">
-          <span>{nameShortener(fixture.teams.home.name)}</span>
+          <span class="team-name">{nameShortener(fixture.teams.home.name)}</span>
         </span>
         <span class="score">{fixture.goals.home} - {fixture.goals.away}</span>
         <span class="awayTeam">
-          <span>{nameShortener(fixture.teams.away.name)}</span>
+          <span class="team-name">{nameShortener(fixture.teams.away.name)}</span>
           <img src="{fixture.teams.away.logo}" alt="teamLogo">
         </span>
       </div>
@@ -68,6 +67,8 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    color: #040F16;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
   }
 
   @media screen and (min-width: 640px) {
@@ -82,7 +83,7 @@
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     font-size: 1em;
-    background: #8B2635;
+    background: #72727E;
     border-bottom: 2px solid black;
   }
 
@@ -103,18 +104,18 @@
 
   div.line > span.homeTeam {
     justify-content: flex-start;
-    padding-left: .3em;
+    padding-left: .5em;
 
   }
 
   div.line > span.awayTeam {
     justify-content: flex-end;
-    padding-right: .3em;
+    padding-right: .5em;
   }
 
   span.score {
     width: 100%;
-    background: #50151e;
+    background: #4E4E56;
     padding: 0 .6em;
     display: grid;
     place-items: center;
