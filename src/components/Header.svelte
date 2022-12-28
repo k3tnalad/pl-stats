@@ -11,7 +11,7 @@
         width: 100%;
         padding: 2em 0 1em 0;
         font-family: 'Crimson Text', serif;
-        background-color: FBFBFF;
+        background-color: #FBFBFF;
         text-align: center;
     }
 </style>
