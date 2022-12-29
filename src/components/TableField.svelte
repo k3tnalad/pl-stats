@@ -71,6 +71,7 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
+      border-radius: 5px;
    }
 
    @media screen and (min-width: 640px) {
@@ -88,7 +89,6 @@
     background-color: #72727E;
     gap: 1em; 
     border-bottom: 2px solid black;
-
   }
 
   div.position:last-of-type {

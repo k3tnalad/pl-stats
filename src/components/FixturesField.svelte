@@ -4,14 +4,23 @@
   
 const nameShortener = (string) => {
     if (string === 'Nottingham Forest') {
-      return 'Nottm Forest'
+      return 'N. Forest'
       } else if (string === 'Manchester City') {
       return 'Man City'
       } else if (string === 'Manchester United') {
         return 'Man United'
+      } else if (string === 'Crystal Palace') {
+        return 'C. Palace';
       } else {
-      return string;
+        return string;
       }
+}
+const dateEditor = (date) => {
+  let [day, time] = date.split('T');
+  let properDateArray = day.split('-')
+  let properDate = properDateArray.reverse().join('.')
+  let properTime = time.split('').splice(0, 5).join('');
+  return `${properDate} ${properTime}`;
 }
 
 
@@ -34,8 +43,7 @@ const options = {
     }
 };
 
-$: fixtures = JSON.parse(localStorage.getItem(`fixtures${CURRENT_GAME_WEEK}`)) || [];
-
+let fixtures = JSON.parse(localStorage.getItem(`fixtures${CURRENT_GAME_WEEK}`)) || [];
 
 async function getGameWeek(num) {
   const endpoint = `https://api-football-v1.p.rapidapi.com/v3/fixtures?league=39&season=2022&&round=Regular%20Season%20-%20${num}`; 
@@ -47,7 +55,6 @@ async function getGameWeek(num) {
     }
     fixtures = JSON.parse(localStorage.getItem(`fixtures${CURRENT_GAME_WEEK}`));
 }
-
 async function lastGameWeek() {
   if (CURRENT_GAME_WEEK) {
     return;
@@ -62,7 +69,6 @@ async function lastGameWeek() {
   getFixturesData();
 }
 lastGameWeek();
-
 async function getFixturesData() {
   const lastGWfixturesEndpoint = `https://api-football-v1.p.rapidapi.com/v3/fixtures?league=39&season=2022&&round=Regular%20Season%20-%20${CURRENT_GAME_WEEK}`;
   console.log(lastGWfixturesEndpoint);
@@ -73,11 +79,12 @@ async function getFixturesData() {
     if (fixturesReq.ok) {
         const fixturesData = await fixturesReq.json();
         fixtures = (fixturesData.response).sort((a, b) => a.fixture.timestamp - b.fixture.timestamp);
+        console.log(fixtures);
         localStorage.setItem(`fixtures${CURRENT_GAME_WEEK}`, JSON.stringify(fixtures));
     }
     }
 
-    fixtures = JSON.parse(localStorage.getItem('fixtures'));
+    fixtures = JSON.parse(localStorage.getItem(`fixtures${CURRENT_GAME_WEEK}`));
 } 
 
 </script>
@@ -85,8 +92,8 @@ async function getFixturesData() {
 <div class="panel">
   <span class="gameweek">Gameweek {CURRENT_GAME_WEEK}</span>
   <nav>
-    <a class="button-59" href="/" on:click|preventDefault={weekHandler}>Previous week {previousWeek}</a>
-    <a class="button-59" href="/" on:click|preventDefault={weekHandler}>Next week {nextWeek}</a>
+    <button on:click|preventDefault={weekHandler}>Previous week {previousWeek}</button>
+    <button on:click|preventDefault={weekHandler}>Next week {nextWeek}</button>
   </nav>
 </div>
 
@@ -98,9 +105,9 @@ async function getFixturesData() {
           <span class="team-name">{nameShortener(fixture.teams.home.name)}</span>
         </span>
         <span class="score">
-          { fixture.goals.home == null ?
-            `T B P` :
-            `${fixture.goals.home} - ${fixture.goals.away}`
+          {fixture.score.fulltime.home === null ?
+               dateEditor(fixture.fixture.date) : 
+               `${fixture.score.fulltime.home} - ${fixture.score.fulltime.away}`
           }
         </span>
         <span class="awayTeam">
@@ -195,35 +202,28 @@ async function getFixturesData() {
     justify-content: space-evenly;
     align-items: center;
   }
+  button {
+    padding: .5em 1em;
+    border: 2px solid black;
+    background: none;
+    font-size: 1.1em;
+  }
 
- .button-59 {
-  align-items: center;
-  background-color: #FBFBFF;
-  border: 2px solid #000;
-  color: #040F16;
-  cursor: pointer;
-  display: inline-flex;
-  fill: #000;
-  font-size: 16px;
-  height: 48px;
-  justify-content: center;
-  letter-spacing: -.8px;
-  line-height: 24px;
-  min-width: 140px;
-  outline: 0;
-  padding: .4em;
-  text-align: center;
-  text-decoration: none;
-  transition: all .3s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-}
+  button:hover {
+    animation: lightFill 200ms ease-in forwards;
+    cursor: pointer;
+  }
 
-.button-59:hover {
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-  background-color: #72727E;
-}
+  @keyframes lightFill {
+    from {
+      background: none;
+      color: #040F16;
+    }
+    to {
+      background: #040F16;
+      color: #FBFBFF;
+    }
+  }
 
 </style>
 

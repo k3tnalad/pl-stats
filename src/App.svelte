@@ -43,9 +43,9 @@
   <div class="data">
     <nav>
       <div class="wrapper">
-        <a href="/" on:click|preventDefault={navHandler}>Fixtures</a>
-        <a href="/" on:click|preventDefault={navHandler}>Table</a>
-        <a href="/" on:click|preventDefault={navHandler}>Statistics</a>
+        <button on:click|preventDefault={navHandler}>Fixtures</button>
+        <button on:click|preventDefault={navHandler}>Table</button>
+        <button on:click|preventDefault={navHandler}>Statistics</button>
       </div>
     </nav>
     {#if tableVisible}  
@@ -79,55 +79,26 @@
     padding-bottom: 3rem;
   }
 
-  nav .wrapper a::after {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: #8B2635;
-    content: '';
-    opacity: 0;
-    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
-    -moz-transition: opacity 0.3s, -moz-transform 0.3s;
-    transition: opacity 0.3s, transform 0.3s;
-    -webkit-transform: translateY(10px);
-    -moz-transform: translateY(10px);
-    transform: translateY(10px);
-  }
-
-  nav a {
-    position: relative;
-    display: inline-block;
-    margin: 15px 15px;
-    outline: none;
-    color: #040F16;
-    text-decoration: none;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 100;
-    text-shadow: 0 0 1px rgba(255,255,255,0.3);
+  button {
+    padding: .5em 1em;
+    border: 2px solid black;
+    background: none;
     font-size: 1.1em;
   }
 
-  @media screen and (max-width: 370px) {
-    nav a {
-      margin: 10px;
-      font-size: 1em;
+  button:hover {
+    animation: lightFill 200ms ease-in forwards;
+    cursor: pointer;
+  }
+
+  @keyframes lightFill {
+    from {
+      background: none;
+      color: #040F16;
+    }
+    to {
+      background: #040F16;
+      color: #FBFBFF;
     }
   }
-
-  nav a:hover,
-  nav a:focus {
-    outline: none;
-  }
-
-  nav .wrapper a:hover::after,
-  nav .wrapper a:focus::after {
-    opacity: 1;
-    -webkit-transform: translateY(0px);
-    -moz-transform: translateY(0px);
-    transform: translateY(0px);
-  }
-</style>
-
+  </style>
