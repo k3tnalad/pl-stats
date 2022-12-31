@@ -44,8 +44,8 @@ async function getStatsData() {
     <div class="statsHeader">
       <span class="player">Player</span>
       <div class="figures">
-        <span>Mins</span>
-        <span>Assists</span>
+        <span class="additional">Mins</span>
+        <span class="additional">Assists</span>
         <span>Goals</span>
         <span>Pens</span>
       </div>
@@ -57,8 +57,8 @@ async function getStatsData() {
         <span class="name">{player.player}</span>
       </span>
       <div class="figures">
-        <span>{player.minutes}</span>
-        <span>{player.assists === null ? '-' : player.assists}</span>
+        <span class="additional">{player.minutes}</span>
+        <span class="additional">{player.assists === null ? '-' : player.assists}</span>
         <span>{player.goals}</span>
         <span>{player.pens}</span>
       </div>
@@ -75,12 +75,6 @@ div.stats {
     align-items: center;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
   }
-  @media screen and (min-width: 640px) {
-    div.stats {
-      width: 60%;
-    }
-   }
-
    div.statsHeader {
      border-radius: 5px 5px 0 0;
      background-color: #59656F;
@@ -115,6 +109,19 @@ div.stats {
     grid-template-columns: repeat(4, 1fr);
     gap: 1em;
     text-align: right;
+  }
+  @media screen and (min-width: 640px) {
+    div.stats {
+      width: 60%;
+    }
+  }
+  @media screen and (max-width: 760px) {
+    div.figures {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    span.additional {
+      display: none;
+    }
   }
 </style>
 
