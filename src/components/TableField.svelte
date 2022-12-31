@@ -26,6 +26,7 @@
   }
 
   let standings = JSON.parse(localStorage.getItem('teams')) || []; 
+  console.log(standings);
 
   async function getTableData() {
     if (standings.length > 1) {
@@ -46,19 +47,28 @@
 
 <div in:fly="{{x: -200, duration: 400}}" out:fade="{{ duration: 100}}" class="table">
     <div class="header">
-      <span id="text-container" class="position-index"><p>#</p></span>
+      <span class="text-container position-index"><p>#</p></span>
       <span class="team">Team</span>
-      <span id="text-container"><p>+/-</p></span>
-      <span id="text-container"><p>Pts</p></span>
+      <span class="text-container"><p>Pl</p></span>
+      <span class="text-container additional"><p>W</p></span>
+      <span class="text-container additional"><p>D</p></span>
+      <span class="text-container additional"><p>L</p></span>
+      <span class="text-container"><p>+/-</p></span>
+      <span class="text-container"><p>Pts</p></span>
     </div>
     {#each standings as team}
       <div class="position">
-        <span id="text-container" class="positon-index"><p>{team.rank}</p></span>
+        <span class="text-container position-index"><p>{team.rank}</p></span>
         <span class="team">
           <img src={team.team.logo} alt="teamLogo">
-          <span>{nameShortener(team.team.name)}</span></span>
-        <span id="text-container"><p>{team.all.goals.for}/{team.all.goals.against}</p></span>
-        <span id="text-container"><p>{team.points}</p></span>
+          <span>{nameShortener(team.team.name)}</span>
+        </span>
+        <span class="text-container"><p>{team.all.played}</p></span>
+        <span class="text-container additional"><p>{team.all.win}</p></span>
+        <span class="text-container additional"><p>{team.all.draw}</p></span>
+        <span class="text-container additional"><p>{team.all.lose}</p></span>
+        <span class="text-container"><p>{team.all.goals.for}/{team.all.goals.against}</p></span>
+        <span class="text-container"><p>{team.points}</p></span>
       </div>
     {/each}
 </div>
@@ -76,20 +86,31 @@
 
    @media screen and (min-width: 640px) {
     div.table {
-      width: 60%;
+      width: 80%;
     }
    }
+
+
 
   div.position, div.header {
     width: 100%;
     height: 2em;
     color: #040F16;
     display: grid;
-    grid-template-columns: 10% auto 15% 15%;
-    background-color: #72727E;
+    grid-template-columns: 5% auto repeat(6, 10%);
+    background-color: #C4D4CA;
     gap: 1em; 
     border-bottom: 2px solid black;
   }
+
+  @media screen and (max-width: 870px) {
+    span.text-container.additional {
+      display: none;
+    }
+    div.position, div.header {
+      grid-template-columns: 10% auto repeat(3, 10%);
+    }
+   }
 
   div.position:last-of-type {
     border: none;
@@ -100,12 +121,11 @@
   div.header > span:first-of-type {
     border-right: 2px solid black;
     text-align: right;
-    padding-right: 10px;
   } 
 
   div.header {
     border-radius: 5px 5px 0px 0px;
-    background-color: #4E4E56;
+    background-color: #59656F;
     color: #040F16;
   }
 
@@ -115,7 +135,7 @@
     align-items: center;
     gap: 0.4em;
   }
-  span#text-container {
+  span.text-container {
     display: grid;
     place-items: center;
   }

@@ -95,11 +95,11 @@ async function getFixturesData() {
 </script>
 
 <div class="panel" in:fly="{{x: -200, duration: 400}}" out:fade="{{ duration: 100}}">
-  <span class="gameweek">Gameweek {CURRENT_GAME_WEEK}</span>
   <nav>
     <button on:click|preventDefault={weekHandler}>Previous week {previousWeek}</button>
     <button on:click|preventDefault={weekHandler}>Next week {nextWeek}</button>
   </nav>
+  <span class="gameweek">Gameweek {CURRENT_GAME_WEEK}</span>
 </div>
 
 <div in:fly="{{x: -200, duration: 500}}" out:fade="{{ duration: 100}}" class="fixtures">
@@ -138,14 +138,13 @@ async function getFixturesData() {
 
   div.panel {
     width: 95%;
-    background-color: #72727E;
     border-radius: 3px;
     padding: 1em;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 1em;
+    gap: 3em;
   }
 
   @media screen and (min-width: 640px) {
@@ -160,7 +159,7 @@ async function getFixturesData() {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
     font-size: 1em;
-    background: #72727E;
+    background: #C4D4CA;
     border-bottom: 2px solid black;
   }
 
@@ -192,19 +191,13 @@ async function getFixturesData() {
 
   span.score {
     width: 100%;
-    background: #4E4E56;
+    background: #59656F;
     padding: 0 .6em;
     display: grid;
     place-items: center;
   }
-  div.dateGroup {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
   span.gameweek {
-    font-size: large;
+    font-size: 24px;
   }
 
   div.panel > nav {
@@ -216,8 +209,8 @@ async function getFixturesData() {
   button {
     padding: .5em 1em;
     border: 2px solid black;
-    background: none;
     font-size: 1.1em;
+    background: #FBFBFF;
   }
 
   button:hover {
@@ -227,11 +220,11 @@ async function getFixturesData() {
 
   @keyframes lightFill {
     from {
-      background: none;
       color: #040F16;
+      background: #FBFBFF;
     }
     to {
-      background: #040F16;
+      background: #59656F;
       color: #FBFBFF;
     }
   }

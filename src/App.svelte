@@ -97,7 +97,7 @@
       color: #040F16;
     }
     to {
-      background: #040F16;
+      background: #59656F;
       color: #FBFBFF;
     }
   }

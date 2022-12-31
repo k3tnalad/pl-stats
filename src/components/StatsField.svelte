@@ -73,10 +73,10 @@ div.stats {
 
    div.statsHeader {
      border-radius: 5px 5px 0 0;
-     background-color: #4E4E56;
+     background-color: #59656F;
    }
    div.player {
-    background-color: #72727E;
+    background-color: #C4D4CA;
    }
   div.statsHeader, div.player {
     width: 100%;
