@@ -44,7 +44,7 @@
   getTableData();
 </script>
 
-<div in:fly="{{duration: 200}}" out:fade="{{ duration: 100}}" class="table">
+<div in:fly="{{x: -200, duration: 400}}" out:fade="{{ duration: 100}}" class="table">
     <div class="header">
       <span id="text-container" class="position-index"><p>#</p></span>
       <span class="team">Team</span>

@@ -86,7 +86,7 @@
     font-size: 1.1em;
   }
 
-  button:hover {
+  button:hover, button:focus {
     animation: lightFill 200ms ease-in forwards;
     cursor: pointer;
   }

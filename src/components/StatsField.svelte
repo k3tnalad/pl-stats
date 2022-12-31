@@ -37,7 +37,7 @@ async function getStatsData() {
 
 </script>
 
-<div in:fly="{{duration: 200}}" out:fade="{{ duration: 100}}" class="stats">
+<div in:fly="{{x: -200, duration: 400}}" out:fade="{{ duration: 100}}" class="stats">
     <div class="statsHeader">
       <span>Player</span>
       <div class="figures">

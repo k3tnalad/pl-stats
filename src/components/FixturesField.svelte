@@ -15,12 +15,17 @@ const nameShortener = (string) => {
         return string;
       }
 }
-const dateEditor = (date) => {
+const getDate = (date) => {
   let [day, time] = date.split('T');
   let properDateArray = day.split('-')
   let properDate = properDateArray.reverse().join('.')
+  return `${properDate}`;
+}
+
+const getTime = (date) => {
+  let [day, time] = date.split('T');
   let properTime = time.split('').splice(0, 5).join('');
-  return `${properDate} ${properTime}`;
+  return `${properTime}`;
 }
 
 
@@ -89,7 +94,7 @@ async function getFixturesData() {
 
 </script>
 
-<div class="panel">
+<div class="panel" in:fly="{{x: -200, duration: 400}}" out:fade="{{ duration: 100}}">
   <span class="gameweek">Gameweek {CURRENT_GAME_WEEK}</span>
   <nav>
     <button on:click|preventDefault={weekHandler}>Previous week {previousWeek}</button>
@@ -97,7 +102,7 @@ async function getFixturesData() {
   </nav>
 </div>
 
-<div in:fly="{{duration: 200}}" out:fade="{{ duration: 100}}" class="fixtures">
+<div in:fly="{{x: -200, duration: 500}}" out:fade="{{ duration: 100}}" class="fixtures">
     {#each fixtures as fixture}
     <div class="line" id={fixture.fixture.id}>
         <span class="homeTeam">
@@ -105,10 +110,11 @@ async function getFixturesData() {
           <span class="team-name">{nameShortener(fixture.teams.home.name)}</span>
         </span>
         <span class="score">
-          {fixture.score.fulltime.home === null ?
-               dateEditor(fixture.fixture.date) : 
-               `${fixture.score.fulltime.home} - ${fixture.score.fulltime.away}`
-          }
+          {#if fixture.score.fulltime.home === null}
+            {getTime(fixture.fixture.date)}
+          {:else}
+            {fixture.score.fulltime.home} - {fixture.score.fulltime.away}
+          {/if}
         </span>
         <span class="awayTeam">
           <span class="team-name">{nameShortener(fixture.teams.away.name)}</span>
@@ -191,7 +197,12 @@ async function getFixturesData() {
     display: grid;
     place-items: center;
   }
-
+  div.dateGroup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
   span.gameweek {
     font-size: large;
   }
