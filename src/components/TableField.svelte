@@ -26,7 +26,6 @@
   }
 
   let standings = JSON.parse(localStorage.getItem('teams')) || []; 
-  console.log(standings);
 
   async function getTableData() {
     if (standings.length > 1) {

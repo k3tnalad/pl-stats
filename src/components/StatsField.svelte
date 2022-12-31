@@ -24,6 +24,9 @@ async function getStatsData() {
             player: i.player.name,
             goals: i.statistics[0].goals.total,
             pens: i.statistics[0].penalty.scored,
+            team: i.statistics[0].team.logo,
+            minutes: i.statistics[0].games.minutes,
+            assists: i.statistics[0].goals.assists,
           }
         });
         localStorage.setItem('stats', JSON.stringify(stats));
@@ -39,16 +42,23 @@ async function getStatsData() {
 
 <div in:fly="{{x: -200, duration: 400}}" out:fade="{{ duration: 100}}" class="stats">
     <div class="statsHeader">
-      <span>Player</span>
+      <span class="player">Player</span>
       <div class="figures">
+        <span>Mins</span>
+        <span>Assists</span>
         <span>Goals</span>
         <span>Pens</span>
       </div>
     </div>
   {#each stats as player}
     <div class="player">
-      <span>{player.player}</span>
+      <span class="player-group">
+        <img src="{player.team}" alt="teamLogo">
+        <span class="name">{player.player}</span>
+      </span>
       <div class="figures">
+        <span>{player.minutes}</span>
+        <span>{player.assists === null ? '-' : player.assists}</span>
         <span>{player.goals}</span>
         <span>{player.pens}</span>
       </div>
@@ -78,11 +88,17 @@ div.stats {
    div.player {
     background-color: #C4D4CA;
    }
+   span.player-group {
+    display: grid;
+    place-items: center;
+    grid-template-columns: repeat(2, auto);
+    gap: 1em;
+   }
   div.statsHeader, div.player {
     width: 100%;
     height: 2em;
     display: grid;
-    grid-template-columns: 70% 30%;
+    grid-template-columns: 50% 50%;
     place-items: center left;
     padding: 0 1em;
     border-bottom: solid 2px black;
@@ -95,9 +111,10 @@ div.stats {
 
   div.figures {
     width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1em;
+    text-align: right;
   }
 </style>
 

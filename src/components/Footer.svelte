@@ -15,4 +15,8 @@
         display: grid;
         place-items: center;
     }
+    a {
+        text-decoration: none;
+        color: #3D2400;
+    }
 </style>

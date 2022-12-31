@@ -84,7 +84,6 @@ async function getFixturesData() {
     if (fixturesReq.ok) {
         const fixturesData = await fixturesReq.json();
         fixtures = (fixturesData.response).sort((a, b) => a.fixture.timestamp - b.fixture.timestamp);
-        console.log(fixtures);
         localStorage.setItem(`fixtures${CURRENT_GAME_WEEK}`, JSON.stringify(fixtures));
     }
     }
