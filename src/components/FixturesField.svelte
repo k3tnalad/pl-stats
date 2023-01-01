@@ -15,24 +15,18 @@ const nameShortener = (string) => {
         return string;
       }
 }
-const getDate = (date) => {
-  let [day, time] = date.split('T');
-  let properDateArray = day.split('-')
-  let properDate = properDateArray.reverse().join('.')
-  return `${properDate}`;
-}
-
 const getTime = (date) => {
   let [day, time] = date.split('T');
   let properTime = time.split('').splice(0, 5).join('');
   return `${properTime}`;
 }
 
-
+let clicked = true;
 
 $: CURRENT_GAME_WEEK = JSON.parse(localStorage.getItem('cGW')) || null;
 $: previousWeek = CURRENT_GAME_WEEK - 1;
 $: nextWeek = CURRENT_GAME_WEEK + 1;
+let fixtures = JSON.parse(localStorage.getItem(`fixtures${CURRENT_GAME_WEEK}`)) || [];
 
 const weekHandler = e => {
   let weekNumber = (e.target.textContent).split(' ').pop();
@@ -48,7 +42,6 @@ const options = {
     }
 };
 
-let fixtures = JSON.parse(localStorage.getItem(`fixtures${CURRENT_GAME_WEEK}`)) || [];
 
 async function getGameWeek(num) {
   const endpoint = `https://api-football-v1.p.rapidapi.com/v3/fixtures?league=39&season=2022&&round=Regular%20Season%20-%20${num}`; 
@@ -96,11 +89,11 @@ async function getFixturesData() {
 <div class="panel" in:fly="{{x: -200, duration: 400}}" out:fade="{{ duration: 100}}">
   <nav>
     <button on:click|preventDefault={weekHandler}>Previous week {previousWeek}</button>
+    <span class="gameweek">GW {CURRENT_GAME_WEEK}</span>
     <button on:click|preventDefault={weekHandler}>Next week {nextWeek}</button>
   </nav>
-  <span class="gameweek">Gameweek {CURRENT_GAME_WEEK}</span>
 </div>
-
+ 
 <div in:fly="{{x: -200, duration: 500}}" out:fade="{{ duration: 100}}" class="fixtures">
     {#each fixtures as fixture}
     <div class="line" id={fixture.fixture.id}>
@@ -138,12 +131,12 @@ async function getFixturesData() {
   div.panel {
     width: 95%;
     border-radius: 3px;
-    padding: 1em;
+    padding: .5em;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 3em;
+    gap: 1em;
   }
 
   @media screen and (min-width: 640px) {
@@ -196,7 +189,7 @@ async function getFixturesData() {
     place-items: center;
   }
   span.gameweek {
-    font-size: 24px;
+    font-size: 18px;
   }
 
   div.panel > nav {
@@ -208,7 +201,7 @@ async function getFixturesData() {
   button {
     padding: .5em 1em;
     border: 2px solid black;
-    font-size: 1.1em;
+    font-size: 1em;
     background: #FBFBFF;
   }
 

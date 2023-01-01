@@ -92,7 +92,7 @@ div.stats {
     width: 100%;
     height: 2em;
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 60% 40%;
     place-items: center left;
     padding: 0 1em;
     border-bottom: solid 2px black;
@@ -115,7 +115,7 @@ div.stats {
       width: 60%;
     }
   }
-  @media screen and (max-width: 760px) {
+  @media screen and (max-width: 940px) {
     div.figures {
       grid-template-columns: repeat(2, 1fr);
     }

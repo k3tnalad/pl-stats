@@ -11,7 +11,7 @@
         width: 100%;
         height: 50px;
         color: #040F16;
-        background: #FBFBFF;
+        background: #edf2f4;
         display: grid;
         place-items: center;
     }

@@ -11,9 +11,9 @@
     @import url('https://fonts.googleapis.com/css2?family=Abel&display=swap');
     header {
         width: 100%;
-        padding: 2em;
+        padding: 1em;
         font-family: 'Abel', sans-serif;
-        background-color: #FBFBFF;
+        background-color: #edf2f4;
         text-align: left;
     }
 
