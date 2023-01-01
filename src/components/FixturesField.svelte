@@ -199,7 +199,7 @@ async function getFixturesData() {
     align-items: center;
   }
   button {
-    padding: .5em 1em;
+    padding: .5em .5em;
     border: 2px solid black;
     font-size: 1em;
     background: #FBFBFF;
