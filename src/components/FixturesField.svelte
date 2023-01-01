@@ -88,9 +88,9 @@ async function getFixturesData() {
 
 <div class="panel" in:fly="{{x: -200, duration: 400}}" out:fade="{{ duration: 100}}">
   <nav>
-    <button on:click|preventDefault={weekHandler}>Previous week {previousWeek}</button>
+    <button on:click|preventDefault={weekHandler}>Prev {previousWeek}</button>
     <span class="gameweek">GW {CURRENT_GAME_WEEK}</span>
-    <button on:click|preventDefault={weekHandler}>Next week {nextWeek}</button>
+    <button on:click|preventDefault={weekHandler}>Next {nextWeek}</button>
   </nav>
 </div>
  
@@ -199,7 +199,8 @@ async function getFixturesData() {
     align-items: center;
   }
   button {
-    padding: .5em .5em;
+    width: 120px;
+    height: 50px;
     border: 2px solid black;
     font-size: 1em;
     background: #FBFBFF;
