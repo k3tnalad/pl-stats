@@ -76,7 +76,7 @@
     align-items: center;
     flex-direction: column;
     gap: 1rem;  
-    padding-bottom: 3rem;
+    padding: 1em 0 2em 0;
   }
 
   button {

@@ -15,6 +15,7 @@
         font-family: 'Abel', sans-serif;
         background-color: #edf2f4;
         text-align: left;
+        border-bottom: 1px #59656F solid;
     }
 
     @media screen and (max-width: 640px) {

@@ -14,6 +14,7 @@
         background: #edf2f4;
         display: grid;
         place-items: center;
+        border-top: 1px #59656F solid;
     }
     a {
         text-decoration: none;

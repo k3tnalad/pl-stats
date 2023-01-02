@@ -123,6 +123,7 @@ async function getFixturesData() {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    background-color: #EDF2F4;
     color: #040F16;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
     border-radius: 5px 5px 5px 5px;
